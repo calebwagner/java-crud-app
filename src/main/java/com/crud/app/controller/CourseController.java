@@ -3,10 +3,9 @@ package com.crud.app.controller;
 import com.crud.app.model.Course;
 import com.crud.app.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Comparator;
 import java.util.List;
@@ -32,6 +31,16 @@ public class CourseController {
                     .collect(Collectors.toList());
         } catch (Exception e) {
             throw new RuntimeException("Error fetching courses", e);
+        }
+    }
+
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    public Course addCourse(@RequestBody Course course) {
+        try {
+            return courseService.saveCourse(course);
+        } catch (Exception e) {
+            throw new RuntimeException("Error saving course", e);
         }
     }
 }

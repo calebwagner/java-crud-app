@@ -20,4 +20,8 @@ public class CourseService {
     public List<Course> getAllCourses() {
         return coursesRepository.findAll();
     }
+
+    public Course saveCourse(Course course) {
+        return coursesRepository.save(course);
+    }
 }
